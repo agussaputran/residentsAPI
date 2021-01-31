@@ -9,7 +9,7 @@ import (
 )
 
 type districtResponse struct {
-	ID       string
+	ID       uint
 	District string
 	Province string
 }
