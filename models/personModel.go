@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
@@ -10,7 +8,7 @@ import (
 type Persons struct {
 	gorm.Model
 	FullName, FirstName, LastName, BirthPlace, Gender, ZoneLocation string
-	BirthDate                                                       time.Time
+	BirthDate                                                       string
 	SubDistrictID                                                   uint
 	SubDistrict                                                     SubDistricts
 }
