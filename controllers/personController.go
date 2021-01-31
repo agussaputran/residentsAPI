@@ -23,6 +23,7 @@ func (strDB *StrDB) PostCreatePerson(c *gin.Context) {
 			"message": "success",
 			"data": map[string]interface{}{
 				"ID":            person.ID,
+				"Nip":           person.Nip,
 				"fullName":      person.FullName,
 				"firstName":     person.FirstName,
 				"lastName":      person.LastName,
