@@ -60,7 +60,7 @@ func (strDB *StrDB) GetReadPerson(c *gin.Context) {
 	persons.gender, persons.zone_location, sub_districts.name as subdistrict,
 	districts.name as district, provinces.name as province`).Joins(`left join sub_districts
 	on sub_districts.id = persons.sub_district_id left join districts on districts.id =
-	sub_districts.district_id left join provinces on provinces.id = district.province_id`).Scan(&response)
+	sub_districts.district_id left join provinces on provinces.id = districts.province_id`).Scan(&response)
 	if length := len(response); length <= 0 {
 		result = ResultAPINilResponse(response, length)
 	} else {
