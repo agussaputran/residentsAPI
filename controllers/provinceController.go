@@ -8,6 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type provinceResponse struct {
+	ID       uint
+	Province string
+}
+
 // PostCreateProvince route struct method
 func (strDB *StrDB) PostCreateProvince(c *gin.Context) {
 	var (
@@ -36,14 +41,15 @@ func (strDB *StrDB) PostCreateProvince(c *gin.Context) {
 func (strDB *StrDB) GetReadProvince(c *gin.Context) {
 	var (
 		province []models.Provinces
+		response []provinceResponse
 		result   gin.H
 	)
 
-	strDB.DB.Find(&province)
-	if length := len(province); length <= 0 {
-		result = ResultAPINilResponse(province, length)
+	strDB.DB.Model(&province).Select("id, name as province").Scan(&response)
+	if length := len(response); length <= 0 {
+		result = ResultAPINilResponse(response, length)
 	} else {
-		result = ResultAPIResponse(province, length)
+		result = ResultAPIResponse(response, length)
 	}
 
 	c.JSON(http.StatusOK, result)
