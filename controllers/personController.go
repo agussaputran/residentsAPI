@@ -8,12 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type personResponse struct {
-	ID uint
-	Nip, FullName, FirstName, LastName, BirthDate, BirthPlace, Gender,
-	ZoneLocation, Subdistrict, District, Province string
-}
-
 // PostCreatePerson route struct method
 func (strDB *StrDB) PostCreatePerson(c *gin.Context) {
 	var (
@@ -49,21 +43,15 @@ func (strDB *StrDB) PostCreatePerson(c *gin.Context) {
 // GetReadPerson route func
 func (strDB *StrDB) GetReadPerson(c *gin.Context) {
 	var (
-		person   []models.Persons
-		response []personResponse
-		result   gin.H
+		person []models.Persons
+		result gin.H
 	)
 
-	strDB.DB.Model(&person).Select(`persons.id, persons.full_name, persons.first_name,
-	persons.last_name, persons.birth_date, persons.birth_place,
-	persons.gender, persons.zone_location, sub_districts.name as subdistrict,
-	districts.name as district, provinces.name as province`).Joins(`left join sub_districts
-	on sub_districts.id = persons.sub_district_id left join districts on districts.id =
-	sub_districts.district_id left join provinces on provinces.id = district.province_id`).Scan(&response)
-	if length := len(response); length <= 0 {
-		result = ResultAPINilResponse(response, length)
+	strDB.DB.Find(&person)
+	if length := len(person); length <= 0 {
+		result = ResultAPINilResponse(person, length)
 	} else {
-		result = ResultAPIResponse(response, length)
+		result = ResultAPIResponse(person, length)
 	}
 
 	c.JSON(http.StatusOK, result)
