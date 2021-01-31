@@ -12,4 +12,5 @@ type Persons struct {
 	FullName, FirstName, LastName, BirthPlace, Gender, ZoneLocation string
 	BirthDate                                                       time.Time
 	SubDistrictID                                                   uint
+	SubDistrict                                                     SubDistricts
 }
