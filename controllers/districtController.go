@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type response struct {
+type districtResponse struct {
 	ID       string
 	District string
 	Province string
@@ -43,7 +43,7 @@ func (strDB *StrDB) PostCreateDistrict(c *gin.Context) {
 func (strDB *StrDB) GetReadDistrict(c *gin.Context) {
 	var (
 		district []models.Districts
-		response []response
+		response []districtResponse
 		result   gin.H
 	)
 
