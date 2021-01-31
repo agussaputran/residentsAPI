@@ -8,6 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type subDistrictResponse struct {
+	ID          uint
+	Subdistrict string
+	District    string
+	Province    string
+}
+
 // PostCreateSubDistrict route struct method
 func (strDB *StrDB) PostCreateSubDistrict(c *gin.Context) {
 	var (
@@ -37,14 +44,20 @@ func (strDB *StrDB) PostCreateSubDistrict(c *gin.Context) {
 func (strDB *StrDB) GetReadSubDistrict(c *gin.Context) {
 	var (
 		subDistrict []models.SubDistricts
+		response    []subDistrictResponse
 		result      gin.H
 	)
 
-	strDB.DB.Find(&subDistrict)
-	if length := len(subDistrict); length <= 0 {
-		result = ResultAPINilResponse(subDistrict, length)
+	strDB.DB.Model(&subDistrict).Select(`sub_districts.id,
+		sub_districts.name as subdistrict,
+		districts.name as district,
+		provinces.name as province`).Joins(`left join districts
+		on districts.id = sub_districts.district_id left join provinces
+		on provinces.id = districts.province_id`).Scan(&response)
+	if length := len(response); length <= 0 {
+		result = ResultAPINilResponse(response, length)
 	} else {
-		result = ResultAPIResponse(subDistrict, length)
+		result = ResultAPIResponse(response, length)
 	}
 
 	c.JSON(http.StatusOK, result)
