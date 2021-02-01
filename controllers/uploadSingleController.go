@@ -17,8 +17,14 @@ func (strDB *StrDB) UploadSingle(c *gin.Context) {
 	)
 
 	file, _ := c.FormFile("photo")
-	fileName := strings.ToLower(file.Filename)
-	photoURL := "http://localhost:8080" + strings.ReplaceAll(fileName, " ", "%")
+	fileNameLower := strings.ToLower(file.Filename)
+	fileName := strings.ReplaceAll(fileNameLower, " ", "%")
+	path := "images/" + fileName
+	photoURL := "http://localhost:8080/" + path + "/" + fileName
+
+	if err := c.SaveUploadedFile(file, path); err != nil {
+		fmt.Println("Terjadi Error", err.Error())
+	}
 
 	id := c.Param("id")
 	if err := c.Bind(&person); err != nil {
