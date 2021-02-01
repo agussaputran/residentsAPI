@@ -22,6 +22,7 @@ func main() {
 	router.GET("/province", strDB.GetReadProvince)
 	router.PATCH("/province", strDB.PatchUpdateProvince)
 	router.DELETE("/province", strDB.DeleteRemoveProvince)
+	router.POST("/upload", controllers.UploadSingle)
 
 	router.POST("/district", strDB.PostCreateDistrict)
 	router.GET("/district", strDB.GetReadDistrict)
