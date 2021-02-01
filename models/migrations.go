@@ -13,11 +13,12 @@ func Migrations(db *gorm.DB) {
 		checkDistricts    bool
 		checkSubDistricts bool
 		checkPersons      bool
-
-		constraintDistricts    bool
-		constraintSubDistricts bool
-		constraintPersons      bool
 	)
+
+	db.Migrator().DropTable(&Provinces{})
+	db.Migrator().DropTable(&Districts{})
+	db.Migrator().DropTable(&SubDistricts{})
+	db.Migrator().DropTable(&Persons{})
 
 	checkProvinces = db.Migrator().HasTable(&Provinces{})
 	if !checkProvinces {
@@ -41,26 +42,5 @@ func Migrations(db *gorm.DB) {
 	if !checkPersons {
 		db.Migrator().CreateTable(&Persons{})
 		fmt.Println("Create Persons Table")
-	}
-
-	// check contraint province to district table
-	constraintDistricts = db.Migrator().HasConstraint(&Provinces{}, "Districts")
-	if !constraintDistricts {
-		db.Migrator().CreateConstraint(&Provinces{}, "Distritcs")
-		fmt.Println("Create Constraint Provinces|Districts")
-	}
-
-	// check contraint district to subDistrict table
-	constraintSubDistricts = db.Migrator().HasConstraint(&Districts{}, "SubDistricts")
-	if !constraintSubDistricts {
-		db.Migrator().CreateConstraint(&Districts{}, "SubDistricts")
-		fmt.Println("Create Constraint Districts|SubDistricts")
-	}
-
-	// check contraint subDistrict to Person table
-	constraintPersons = db.Migrator().HasConstraint(&SubDistricts{}, "Persons")
-	if !constraintPersons {
-		db.Migrator().CreateConstraint(&SubDistricts{}, "Persons")
-		fmt.Println("Create Constraint SubDistricts|Persons")
 	}
 }
