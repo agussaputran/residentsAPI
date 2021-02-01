@@ -16,6 +16,11 @@ func main() {
 	// Migrations
 	models.Migrations(pgDB)
 
+	// Seed to postgre DB
+	models.SeederProvince(pgDB)
+	models.SeederDistrict(pgDB)
+	models.SeederSubDistrict(pgDB)
+
 	router := gin.Default()
 
 	router.POST("/province", strDB.PostCreateProvince)
