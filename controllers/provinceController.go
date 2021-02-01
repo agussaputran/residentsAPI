@@ -41,15 +41,16 @@ func (strDB *StrDB) PostCreateProvince(c *gin.Context) {
 func (strDB *StrDB) GetReadProvince(c *gin.Context) {
 	var (
 		province []models.Provinces
-		response []provinceResponse
-		result   gin.H
+		// response []provinceResponse
+		result gin.H
 	)
 
-	strDB.DB.Model(&province).Select("id, name as province").Scan(&response)
-	if length := len(response); length <= 0 {
-		result = ResultAPINilResponse(response, length)
+	// strDB.DB.Model(&province).Select("id, name as province").Scan(&response)
+	strDB.DB.Preload("District").Preload("District.SubDistrict").Preload("District.SubDistrict.Person").Find(&province)
+	if length := len(province); length <= 0 {
+		result = ResultAPINilResponse(province, length)
 	} else {
-		result = ResultAPIResponse(response, length)
+		result = ResultAPIResponse(province, length)
 	}
 
 	c.JSON(http.StatusOK, result)
