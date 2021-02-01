@@ -39,6 +39,7 @@ func (strDB *StrDB) PostCreatePerson(c *gin.Context) {
 				"birthPlace":    person.BirthPlace,
 				"gender":        person.Gender,
 				"zoneLocation":  person.ZoneLocation,
+				"photo_url":     person.PhotoUrl,
 				"created_at":    person.CreatedAt,
 				"update_at":     person.UpdatedAt,
 			},
@@ -57,7 +58,7 @@ func (strDB *StrDB) GetReadPerson(c *gin.Context) {
 
 	strDB.DB.Model(&person).Select(`persons.id, persons.full_name, persons.first_name,
 	persons.last_name, persons.birth_date, persons.birth_place,
-	persons.gender, persons.zone_location, sub_districts.name as subdistrict,
+	persons.gender, persons.zone_location, persons.photo_url, sub_districts.name as subdistrict,
 	districts.name as district, provinces.name as province`).Joins(`left join sub_districts
 	on sub_districts.id = persons.sub_district_id left join districts on districts.id =
 	sub_districts.district_id left join provinces on provinces.id = districts.province_id`).Scan(&response)
@@ -94,6 +95,7 @@ func (strDB *StrDB) PatchUpdatePerson(c *gin.Context) {
 				"birthPlace":    person.BirthPlace,
 				"gender":        person.Gender,
 				"zoneLocation":  person.ZoneLocation,
+				"photo_url":     person.PhotoUrl,
 			},
 		}
 		c.JSON(http.StatusOK, result)
