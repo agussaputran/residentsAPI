@@ -7,7 +7,6 @@ import (
 // Persons model
 type Persons struct {
 	gorm.Model
-	Nip, FullName, FirstName, LastName, BirthPlace, Gender, ZoneLocation string
-	BirthDate                                                            string
-	SubDistrictID                                                        uint
+	Nip, FullName, FirstName, LastName, BirthDate, BirthPlace, Gender, ZoneLocation, PhotoUrl string
+	SubDistrictID                                                                             uint
 }
