@@ -2,19 +2,33 @@ package config
 
 import (
 	"fmt"
+	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
+func getEnvVar(key string) string {
+	// load .env file
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	return os.Getenv(key)
+}
+
 // Connect with gorm
 func Connect() *gorm.DB {
 	var userDB, pwDB, portDB, hostDB, nameDB string
-	userDB = "postgres"
-	pwDB = "r3m3mb3r34"
-	portDB = "5432"
-	hostDB = "localhost"
-	nameDB = "Penduduk"
+	userDB = getEnvVar("DB_USER")
+	pwDB = getEnvVar("DB_PASSWORD")
+	portDB = getEnvVar("DB_PORT")
+	hostDB = getEnvVar("DB_HOST")
+	nameDB = getEnvVar("DB_NAME")
 
 	conn := " host=" + hostDB +
 		" user=" + userDB +
