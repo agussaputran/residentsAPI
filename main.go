@@ -29,6 +29,7 @@ func main() {
 	models.SeederProvince(pgDB)
 	models.SeederDistrict(pgDB)
 	models.SeederSubDistrict(pgDB)
+	models.SeederUser(pgDB)
 
 	router := gin.Default()
 
