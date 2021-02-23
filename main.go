@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testcasetwo/config"
 	"testcasetwo/controllers"
+	"testcasetwo/middleware"
 	"testcasetwo/models"
 
 	"github.com/gin-gonic/gin"
@@ -31,30 +32,32 @@ func main() {
 	models.SeederSubDistrict(pgDB)
 	models.SeederUser(pgDB)
 
+	authMiddleware := middleware.Auth
+
 	router := gin.Default()
 
 	router.POST("/auth/login", strDB.LoginUser)
 
-	router.POST("/province", strDB.PostCreateProvince)
-	router.GET("/province", strDB.GetReadProvince)
-	router.PATCH("/province", strDB.PatchUpdateProvince)
-	router.DELETE("/province", strDB.DeleteRemoveProvince)
-	router.POST("/upload/:id", strDB.UploadSingle)
+	router.POST("/province", authMiddleware, strDB.PostCreateProvince)
+	router.GET("/province", authMiddleware, strDB.GetReadProvince)
+	router.PATCH("/province", authMiddleware, strDB.PatchUpdateProvince)
+	router.DELETE("/province", authMiddleware, strDB.DeleteRemoveProvince)
+	router.POST("/upload/:id", authMiddleware, strDB.UploadSingle)
 
-	router.POST("/district", strDB.PostCreateDistrict)
-	router.GET("/district", strDB.GetReadDistrict)
-	router.PATCH("/district", strDB.PatchUpdateDistrict)
-	router.DELETE("/district", strDB.DeleteRemoveDistrict)
+	router.POST("/district", authMiddleware, strDB.PostCreateDistrict)
+	router.GET("/district", authMiddleware, strDB.GetReadDistrict)
+	router.PATCH("/district", authMiddleware, strDB.PatchUpdateDistrict)
+	router.DELETE("/district", authMiddleware, strDB.DeleteRemoveDistrict)
 
-	router.POST("/subdistrict", strDB.PostCreateSubDistrict)
-	router.GET("/subdistrict", strDB.GetReadSubDistrict)
-	router.PATCH("/subdistrict", strDB.PatchUpdateSubDistrict)
-	router.DELETE("/subdistrict", strDB.DeleteRemoveSubDistrict)
+	router.POST("/subdistrict", authMiddleware, strDB.PostCreateSubDistrict)
+	router.GET("/subdistrict", authMiddleware, strDB.GetReadSubDistrict)
+	router.PATCH("/subdistrict", authMiddleware, strDB.PatchUpdateSubDistrict)
+	router.DELETE("/subdistrict", authMiddleware, strDB.DeleteRemoveSubDistrict)
 
-	router.POST("/person", strDB.PostCreatePerson)
-	router.GET("/person", strDB.GetReadPerson)
-	router.PATCH("/person", strDB.PatchUpdatePerson)
-	router.DELETE("/person", strDB.DeleteRemovePerson)
+	router.POST("/person", authMiddleware, strDB.PostCreatePerson)
+	router.GET("/person", authMiddleware, strDB.GetReadPerson)
+	router.PATCH("/person", authMiddleware, strDB.PatchUpdatePerson)
+	router.DELETE("/person", authMiddleware, strDB.DeleteRemovePerson)
 
 	router.Run()
 }
