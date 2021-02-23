@@ -34,7 +34,7 @@ func (strDB *StrDB) UploadSingle(c *gin.Context) {
 		result = gin.H{
 			"message": "success",
 			"data": map[string]interface{}{
-				"photo_url": person.PhotoUrl,
+				"photo_url": person.PhotoURL,
 			},
 		}
 		c.JSON(http.StatusOK, result)

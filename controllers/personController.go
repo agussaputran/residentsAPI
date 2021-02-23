@@ -47,7 +47,7 @@ func (strDB *StrDB) PostCreatePerson(c *gin.Context) {
 				"birth_place":     person.BirthPlace,
 				"gender":          person.Gender,
 				"zone_location":   person.ZoneLocation,
-				"photo_url":       person.PhotoUrl,
+				"photo_url":       person.PhotoURL,
 				"created_at":      person.CreatedAt,
 				"update_at":       person.UpdatedAt,
 			},
@@ -103,7 +103,7 @@ func (strDB *StrDB) PatchUpdatePerson(c *gin.Context) {
 				"birthPlace":    person.BirthPlace,
 				"gender":        person.Gender,
 				"zoneLocation":  person.ZoneLocation,
-				"photo_url":     person.PhotoUrl,
+				"photo_url":     person.PhotoURL,
 			},
 		}
 		c.JSON(http.StatusOK, result)
