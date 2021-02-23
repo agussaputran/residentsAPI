@@ -5,7 +5,9 @@ import "github.com/gin-gonic/gin"
 // ResultAPIResponse func
 func ResultAPIResponse(str interface{}, length int) gin.H {
 	return gin.H{
-		"message": "success",
+		"code":    200,
+		"status":  "Ok",
+		"message": "success get data",
 		"data":    str,
 		"count":   length,
 	}
@@ -14,7 +16,9 @@ func ResultAPIResponse(str interface{}, length int) gin.H {
 // ResultAPINilResponse func
 func ResultAPINilResponse(str interface{}, length int) gin.H {
 	return gin.H{
-		"message": "success",
+		"code":    200,
+		"status":  "Ok",
+		"message": "success get data",
 		"data":    nil,
 		"count":   length,
 	}
