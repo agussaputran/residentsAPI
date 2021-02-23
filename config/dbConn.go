@@ -24,11 +24,11 @@ func getEnvVar(key string) string {
 // Connect with gorm
 func Connect() *gorm.DB {
 	var userDB, pwDB, portDB, hostDB, nameDB string
-	userDB = getEnvVar("DB_USER")
-	pwDB = getEnvVar("DB_PASSWORD")
-	portDB = getEnvVar("DB_PORT")
-	hostDB = getEnvVar("DB_HOST")
-	nameDB = getEnvVar("DB_NAME")
+	userDB = os.Getenv("DB_USER")
+	pwDB = os.Getenv("DB_PASSWORD")
+	portDB = os.Getenv("DB_PORT")
+	hostDB = os.Getenv("DB_HOST")
+	nameDB = os.Getenv("DB_NAME")
 
 	conn := " host=" + hostDB +
 		" user=" + userDB +

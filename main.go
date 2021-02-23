@@ -1,12 +1,21 @@
 package main
 
 import (
+	"fmt"
 	"testcasetwo/config"
 	"testcasetwo/controllers"
 	"testcasetwo/models"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	// loads values from .env into the system
+	if err := godotenv.Load(); err != nil {
+		fmt.Println("No .env file found ..")
+	}
+}
 
 func main() {
 	// db connect to postgre DB
