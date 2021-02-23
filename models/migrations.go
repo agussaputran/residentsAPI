@@ -13,12 +13,14 @@ func Migrations(db *gorm.DB) {
 		checkDistricts    bool
 		checkSubDistricts bool
 		checkPersons      bool
+		checkUsers        bool
 	)
 
 	db.Migrator().DropTable(&Provinces{})
 	db.Migrator().DropTable(&Districts{})
 	db.Migrator().DropTable(&SubDistricts{})
 	db.Migrator().DropTable(&Persons{})
+	db.Migrator().DropTable(&Users{})
 
 	checkProvinces = db.Migrator().HasTable(&Provinces{})
 	if !checkProvinces {
@@ -42,5 +44,11 @@ func Migrations(db *gorm.DB) {
 	if !checkPersons {
 		db.Migrator().CreateTable(&Persons{})
 		fmt.Println("Create Persons Table")
+	}
+
+	checkUsers = db.Migrator().HasTable(&Users{})
+	if !checkUsers {
+		db.Migrator().CreateTable(&Users{})
+		fmt.Println("Create Users Table")
 	}
 }

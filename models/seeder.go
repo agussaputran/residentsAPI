@@ -2,8 +2,10 @@ package models
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -67,4 +69,29 @@ func SeederSubDistrict(db *gorm.DB) {
 
 	}
 	fmt.Println("Seeder Sub District created")
+}
+
+// SeederUser func
+func SeederUser(db *gorm.DB) {
+	var userArr = [...][3]string{
+		{"admin@xapiens.id", "admin", "admin"},
+		{"user@gmail.com", "user", "user"},
+	}
+
+	var user Users
+	for _, v := range userArr {
+		user.Email = v[0]
+		user.Password = v[1]
+		user.Role = v[2]
+		user.ID = 0
+
+		hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+		if err != nil {
+			log.Println(err)
+		}
+		user.Password = string(hash)
+
+		db.Create(&user)
+	}
+	fmt.Println("Seeder user created")
 }
