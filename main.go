@@ -33,6 +33,8 @@ func main() {
 
 	router := gin.Default()
 
+	router.POST("/auth/login", strDB.LoginUser)
+
 	router.POST("/province", strDB.PostCreateProvince)
 	router.GET("/province", strDB.GetReadProvince)
 	router.PATCH("/province", strDB.PatchUpdateProvince)

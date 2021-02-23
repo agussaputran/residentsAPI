@@ -33,6 +33,7 @@ func (strDB *StrDB) LoginUser(c *gin.Context) {
 			"message": "email atau password salah",
 		}
 	} else {
+		log.Println("Email ", user.Email, " Berhasil login")
 		if userDB.Role == "admin" {
 			result = gin.H{
 				"message": "anda berhasil login",
