@@ -9,9 +9,9 @@ import (
 )
 
 type districtResponse struct {
-	ID       uint
-	District string
-	Province string
+	ID       uint   `json:"id"`
+	District string `json:"district_name"`
+	Province string `json:"province_name"`
 }
 
 // PostCreateDistrict route struct method
@@ -28,7 +28,7 @@ func (strDB *StrDB) PostCreateDistrict(c *gin.Context) {
 		result = gin.H{
 			"message": "success",
 			"data": map[string]interface{}{
-				"ID":          district.ID,
+				"id":          district.ID,
 				"province_id": district.ProvinceID,
 				"district":    district.Name,
 				"created_at":  district.CreatedAt,

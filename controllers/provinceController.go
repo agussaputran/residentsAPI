@@ -8,10 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type provinceResponse struct {
-	ID       uint
-	Province string
-}
+// type provinceResponse struct {
+// 	ID       uint
+// 	Province string
+// }
 
 // PostCreateProvince route struct method
 func (strDB *StrDB) PostCreateProvince(c *gin.Context) {

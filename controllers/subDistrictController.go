@@ -9,10 +9,10 @@ import (
 )
 
 type subDistrictResponse struct {
-	ID          uint
-	Subdistrict string
-	District    string
-	Province    string
+	ID          uint   `json:"id"`
+	Subdistrict string `json:"sub_disrict_name"`
+	District    string `json:"district_name"`
+	Province    string `json:"province_name"`
 }
 
 // PostCreateSubDistrict route struct method

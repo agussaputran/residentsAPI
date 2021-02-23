@@ -9,10 +9,18 @@ import (
 )
 
 type personResponse struct {
-	ID uint
-	FullName, FirstName, LastName, BirthDate,
-	BirthPlace, Gender, ZoneLocation, Subdistrict,
-	District, Province, Photo string
+	ID           uint   `json:"id"`
+	FullName     string `json:"full_name"`
+	FirstName    string `json:"firts_name"`
+	LastName     string `json:"last_name"`
+	BirthDate    string `json:"birth_date"`
+	BirthPlace   string `json:"birth_place"`
+	Gender       string `json:"gender"`
+	ZoneLocation string `json:"zone_location"`
+	Subdistrict  string `json:"sub_district_name"`
+	District     string `json:"district_name"`
+	Province     string `json:"province_name"`
+	Photo        string `json:"photo_url"`
 }
 
 // PostCreatePerson route struct method
@@ -29,19 +37,19 @@ func (strDB *StrDB) PostCreatePerson(c *gin.Context) {
 		result = gin.H{
 			"message": "success",
 			"data": map[string]interface{}{
-				"ID":            person.ID,
-				"Nip":           person.Nip,
-				"fullName":      person.FullName,
-				"firstName":     person.FirstName,
-				"lastName":      person.LastName,
-				"subDistrictID": person.SubDistrictID,
-				"birthDate":     person.BirthDate,
-				"birthPlace":    person.BirthPlace,
-				"gender":        person.Gender,
-				"zoneLocation":  person.ZoneLocation,
-				"photo_url":     person.PhotoUrl,
-				"created_at":    person.CreatedAt,
-				"update_at":     person.UpdatedAt,
+				"id":              person.ID,
+				"nip":             person.Nip,
+				"full_name":       person.FullName,
+				"firts_name":      person.FirstName,
+				"last_name":       person.LastName,
+				"sub_district_id": person.SubDistrictID,
+				"birth_date":      person.BirthDate,
+				"birth_place":     person.BirthPlace,
+				"gender":          person.Gender,
+				"zone_location":   person.ZoneLocation,
+				"photo_url":       person.PhotoUrl,
+				"created_at":      person.CreatedAt,
+				"update_at":       person.UpdatedAt,
 			},
 		}
 		c.JSON(http.StatusOK, result)
